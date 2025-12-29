@@ -202,7 +202,7 @@ public class UpdateService
         }
 
         _logger.LogInfo($"Creating backup: {backupPath}");
-        Directory.Move(options.Destination, backupPath);
+        DirectoryHelper.MoveDirectory(options.Destination, backupPath, _logger);
         
         return backupPath;
     }
@@ -216,7 +216,7 @@ public class UpdateService
             throw new InvalidOperationException($"Destination already exists (should have been moved to backup): {destination}");
         }
 
-        Directory.Move(newBuildPath, destination);
+        DirectoryHelper.MoveDirectory(newBuildPath, destination, _logger);
     }
 
     private string GetBackupPath(UpdateOptions options)

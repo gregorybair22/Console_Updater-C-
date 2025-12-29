@@ -20,6 +20,15 @@ public class RollbackService
 
         ValidateOptions(options);
 
+        // Check if backup root exists and has backups
+        if (!Directory.Exists(options.BackupRoot))
+        {
+            throw new InvalidOperationException(
+                $"Backup root directory does not exist: {options.BackupRoot}\n" +
+                "No backups are available. You need to perform at least one update before you can rollback.\n" +
+                "Use 'list-versions' command to see available backups.");
+        }
+
         // Determine which backup to use
         string backupPath;
         if (options.UseLast)
@@ -27,7 +36,10 @@ public class RollbackService
             backupPath = FindLastBackup(options.BackupRoot);
             if (string.IsNullOrEmpty(backupPath))
             {
-                throw new InvalidOperationException("No backups found in backup root");
+                throw new InvalidOperationException(
+                    $"No backups found in backup root: {options.BackupRoot}\n" +
+                    "The backup directory exists but is empty. You need to perform at least one update before you can rollback.\n" +
+                    "Use 'list-versions' command to see available backups.");
             }
             _logger.LogInfo($"Using last backup: {backupPath}");
         }
@@ -36,7 +48,29 @@ public class RollbackService
             backupPath = Path.Combine(options.BackupRoot, options.ToVersion);
             if (!Directory.Exists(backupPath))
             {
-                throw new DirectoryNotFoundException($"Backup version not found: {backupPath}");
+                // Try to provide helpful suggestions
+                var availableBackups = Directory.GetDirectories(options.BackupRoot)
+                    .Select(d => Path.GetFileName(d))
+                    .ToList();
+                
+                var errorMsg = $"Backup version not found: {options.ToVersion}\n" +
+                              $"Backup root: {options.BackupRoot}";
+                
+                if (availableBackups.Count > 0)
+                {
+                    errorMsg += $"\n\nAvailable backups:\n  - {string.Join("\n  - ", availableBackups.Take(10))}";
+                    if (availableBackups.Count > 10)
+                    {
+                        errorMsg += $"\n  ... and {availableBackups.Count - 10} more";
+                    }
+                    errorMsg += "\n\nUse 'list-versions' command to see all available backups.";
+                }
+                else
+                {
+                    errorMsg += "\n\nNo backups found in the backup root.";
+                }
+                
+                throw new DirectoryNotFoundException(errorMsg);
             }
             _logger.LogInfo($"Using specified backup: {backupPath}");
         }
@@ -71,7 +105,7 @@ public class RollbackService
 
         // Move selected backup to destination
         _logger.LogInfo($"Restoring backup to destination: {options.Destination}");
-        Directory.Move(backupPath, options.Destination);
+        DirectoryHelper.MoveDirectory(backupPath, options.Destination, _logger);
 
         _logger.LogInfo("Rollback completed successfully!");
         _logger.LogInfo($"  - Destination restored: {options.Destination}");
@@ -94,10 +128,8 @@ public class RollbackService
             throw new ArgumentException("Backup root path cannot be empty");
         }
 
-        if (!Directory.Exists(options.BackupRoot))
-        {
-            throw new DirectoryNotFoundException($"Backup root not found: {options.BackupRoot}");
-        }
+        // Note: We don't check if backup root exists here anymore
+        // We check it in Rollback() method to provide better error messages
     }
 
     private string FindLastBackup(string backupRoot)
@@ -132,7 +164,7 @@ public class RollbackService
         }
 
         _logger.LogInfo($"Backing up current version before rollback: {backupPath}");
-        Directory.Move(options.Destination, backupPath);
+        DirectoryHelper.MoveDirectory(options.Destination, backupPath, _logger);
         
         return backupPath;
     }
