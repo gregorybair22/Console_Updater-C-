@@ -1,0 +1,11 @@
+D:\second_task\Updater.Core\bin\Debug\net9.0\Updater.Core.deps.json
+D:\second_task\Updater.Core\bin\Debug\net9.0\Updater.Core.dll
+D:\second_task\Updater.Core\bin\Debug\net9.0\Updater.Core.pdb
+D:\second_task\Updater.Core\obj\Debug\net9.0\Updater.Core.GeneratedMSBuildEditorConfig.editorconfig
+D:\second_task\Updater.Core\obj\Debug\net9.0\Updater.Core.AssemblyInfoInputs.cache
+D:\second_task\Updater.Core\obj\Debug\net9.0\Updater.Core.AssemblyInfo.cs
+D:\second_task\Updater.Core\obj\Debug\net9.0\Updater.Core.csproj.CoreCompileInputs.cache
+D:\second_task\Updater.Core\obj\Debug\net9.0\Updater.Core.dll
+D:\second_task\Updater.Core\obj\Debug\net9.0\refint\Updater.Core.dll
+D:\second_task\Updater.Core\obj\Debug\net9.0\Updater.Core.pdb
+D:\second_task\Updater.Core\obj\Debug\net9.0\ref\Updater.Core.dll

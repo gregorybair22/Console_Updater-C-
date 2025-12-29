@@ -1,0 +1,15 @@
+Visual Studio Startup Project Setup
+====================================
+
+To fix the "Class Library cannot be started" error:
+
+1. In Visual Studio, open Solution Explorer (View → Solution Explorer)
+2. Right-click on "Updater.Cli" project
+3. Select "Set as Startup Project"
+
+Now you can run/debug the console application directly from Visual Studio.
+
+Alternatively:
+- Select "Updater.Cli" in Solution Explorer
+- Go to Project menu → Set as Startup Project
+
