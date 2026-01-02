@@ -12,7 +12,7 @@ public class ArchiveExtractor
         _logger = logger;
     }
 
-    public string Extract(string sourcePath, string destinationPath, string? sevenZipPath = null)
+    public string Extract(string sourcePath, string destinationPath, string? winRarPath = null)
     {
         if (Directory.Exists(sourcePath))
         {
@@ -42,7 +42,7 @@ public class ArchiveExtractor
         return extension switch
         {
             ".zip" => ExtractZip(sourcePath, destinationPath),
-            ".rar" => ExtractRar(sourcePath, destinationPath, sevenZipPath),
+            ".rar" => ExtractRar(sourcePath, destinationPath, winRarPath),
             _ => throw new NotSupportedException($"Unsupported archive format: {extension}")
         };
     }
@@ -63,17 +63,17 @@ public class ArchiveExtractor
         return destinationPath;
     }
 
-    private string ExtractRar(string rarPath, string destinationPath, string? sevenZipPath)
+    private string ExtractRar(string rarPath, string destinationPath, string? winRarPath)
     {
         _logger.LogInfo($"Extracting RAR archive: {rarPath}");
 
-        // Try to find 7z.exe
-        var sevenZipExe = FindSevenZip(sevenZipPath);
-        if (string.IsNullOrEmpty(sevenZipExe))
+        // Try to find WinRAR.exe
+        var winRarExe = FindWinRar(winRarPath);
+        if (string.IsNullOrEmpty(winRarExe))
         {
             throw new FileNotFoundException(
-                "7z.exe not found. Please install 7-Zip and ensure 7z.exe is in PATH, " +
-                "or specify --sevenzip-path option.");
+                "WinRAR.exe not found. Please install WinRAR and ensure WinRAR.exe is in PATH, " +
+                "or specify --winrar-path option.");
         }
 
         if (Directory.Exists(destinationPath))
@@ -82,10 +82,13 @@ public class ArchiveExtractor
         }
         Directory.CreateDirectory(destinationPath);
 
+        // Ensure destination path ends with backslash for WinRAR
+        var destinationPathWithBackslash = destinationPath.TrimEnd('\\', '/') + "\\";
+        
         var processStartInfo = new ProcessStartInfo
         {
-            FileName = sevenZipExe,
-            Arguments = $"x \"{rarPath}\" -o\"{destinationPath}\" -y",
+            FileName = winRarExe,
+            Arguments = $"x \"{rarPath}\" \"{destinationPathWithBackslash}\" -y",
             UseShellExecute = false,
             RedirectStandardOutput = true,
             RedirectStandardError = true,
@@ -95,7 +98,7 @@ public class ArchiveExtractor
         using var process = Process.Start(processStartInfo);
         if (process == null)
         {
-            throw new InvalidOperationException("Failed to start 7z.exe process");
+            throw new InvalidOperationException("Failed to start WinRAR.exe process");
         }
 
         process.WaitForExit();
@@ -103,14 +106,14 @@ public class ArchiveExtractor
         if (process.ExitCode != 0)
         {
             var error = process.StandardError.ReadToEnd();
-            throw new InvalidOperationException($"7z.exe extraction failed with exit code {process.ExitCode}: {error}");
+            throw new InvalidOperationException($"WinRAR.exe extraction failed with exit code {process.ExitCode}: {error}");
         }
 
         _logger.LogInfo($"RAR extraction completed to: {destinationPath}");
         return destinationPath;
     }
 
-    private string? FindSevenZip(string? customPath)
+    private string? FindWinRar(string? customPath)
     {
         if (!string.IsNullOrEmpty(customPath) && File.Exists(customPath))
         {
@@ -121,18 +124,18 @@ public class ArchiveExtractor
         var pathDirs = Environment.GetEnvironmentVariable("PATH")?.Split(Path.PathSeparator) ?? Array.Empty<string>();
         foreach (var dir in pathDirs)
         {
-            var sevenZipPath = Path.Combine(dir, "7z.exe");
-            if (File.Exists(sevenZipPath))
+            var winRarPath = Path.Combine(dir, "WinRAR.exe");
+            if (File.Exists(winRarPath))
             {
-                return sevenZipPath;
+                return winRarPath;
             }
         }
 
         // Check common installation locations
         var commonPaths = new[]
         {
-            @"C:\Program Files\7-Zip\7z.exe",
-            @"C:\Program Files (x86)\7-Zip\7z.exe"
+            @"C:\Program Files\WinRAR\WinRAR.exe",
+            @"C:\Program Files (x86)\WinRAR\WinRAR.exe"
         };
 
         foreach (var path in commonPaths)

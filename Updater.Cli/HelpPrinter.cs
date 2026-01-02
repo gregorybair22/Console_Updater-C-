@@ -37,7 +37,7 @@ public class HelpPrinter
         Console.WriteLine("  --source <path>           Source package (ZIP, RAR, or folder)");
         Console.WriteLine("                            Default: .\\net7.0-windows.rar");
         Console.WriteLine("  --dest <path>             Destination folder to update");
-        Console.WriteLine("                            Default: .\\maquinasdispensadorasnuevosoftware");
+        Console.WriteLine("                            Default: ..\\maquinasdispensadorasnuevosoftware");
         Console.WriteLine("  --backup-root <path>      Root folder for backups");
         Console.WriteLine("                            Default: .\\secur");
         Console.WriteLine("  --config-file <name>      Config file name to preserve");
@@ -48,11 +48,11 @@ public class HelpPrinter
         Console.WriteLine("  --require-config <bool>  Fail if config file is missing");
         Console.WriteLine("                            Default: false");
         Console.WriteLine("  --dry-run                Show what would be done without making changes");
-        Console.WriteLine("  --sevenzip-path <path>   Path to 7z.exe (for RAR extraction)");
+        Console.WriteLine("  --winrar-path <path>     Path to WinRAR.exe (for RAR extraction)");
         Console.WriteLine();
         Console.WriteLine("ROLLBACK COMMAND OPTIONS");
         Console.WriteLine("  --dest <path>             Destination folder to restore");
-        Console.WriteLine("                            Default: .\\maquinasdispensadorasnuevosoftware");
+        Console.WriteLine("                            Default: ..\\maquinasdispensadorasnuevosoftware");
         Console.WriteLine("  --backup-root <path>      Root folder for backups");
         Console.WriteLine("                            Default: .\\secur");
         Console.WriteLine("  --last                    Rollback to most recent backup");
@@ -64,7 +64,7 @@ public class HelpPrinter
         Console.WriteLine();
         Console.WriteLine("DEFAULTS");
         Console.WriteLine("  --source:        .\\net7.0-windows.rar");
-        Console.WriteLine("  --dest:          .\\maquinasdispensadorasnuevosoftware");
+        Console.WriteLine("  --dest:          ..\\maquinasdispensadorasnuevosoftware");
         Console.WriteLine("  --backup-root:   .\\secur");
         Console.WriteLine("  --config-file:   appsettings.json");
         Console.WriteLine("  --inner-folder:  auto-detect");
@@ -93,11 +93,11 @@ public class HelpPrinter
         Console.WriteLine("  Updater.Cli rollback --to maquinasdispensadorasnuevosoftware_20251225_221501");
         Console.WriteLine();
         Console.WriteLine("RAR EXTRACTION");
-        Console.WriteLine("  RAR extraction requires 7-Zip. The tool will look for 7z.exe in:");
+        Console.WriteLine("  RAR extraction requires WinRAR. The tool will look for WinRAR.exe in:");
         Console.WriteLine("    - PATH environment variable");
-        Console.WriteLine("    - C:\\Program Files\\7-Zip\\7z.exe");
-        Console.WriteLine("    - C:\\Program Files (x86)\\7-Zip\\7z.exe");
-        Console.WriteLine("  Or specify --sevenzip-path option.");
+        Console.WriteLine("    - C:\\Program Files\\WinRAR\\WinRAR.exe");
+        Console.WriteLine("    - C:\\Program Files (x86)\\WinRAR\\WinRAR.exe");
+        Console.WriteLine("  Or specify --winrar-path option.");
     }
 
     private void PrintCommandHelp(string subCommand)
@@ -115,7 +115,7 @@ public class HelpPrinter
                 Console.WriteLine("  --source <path>           Source package (ZIP, RAR, or folder)");
                 Console.WriteLine("                            Default: .\\net7.0-windows.rar");
                 Console.WriteLine("  --dest <path>             Destination folder to update");
-                Console.WriteLine("                            Default: .\\maquinasdispensadorasnuevosoftware");
+                Console.WriteLine("                            Default: ..\\maquinasdispensadorasnuevosoftware");
                 Console.WriteLine("  --backup-root <path>      Root folder for backups");
                 Console.WriteLine("                            Default: .\\secur");
                 Console.WriteLine("  --config-file <name>      Config file name to preserve");
@@ -126,7 +126,7 @@ public class HelpPrinter
                 Console.WriteLine("  --require-config <bool>  Fail if config file is missing");
                 Console.WriteLine("                            Default: false");
                 Console.WriteLine("  --dry-run                Show what would be done without making changes");
-                Console.WriteLine("  --sevenzip-path <path>   Path to 7z.exe (for RAR extraction)");
+                Console.WriteLine("  --winrar-path <path>     Path to WinRAR.exe (for RAR extraction)");
                 Console.WriteLine();
                 Console.WriteLine("EXAMPLES");
                 Console.WriteLine("  Updater.Cli update");
@@ -144,7 +144,7 @@ public class HelpPrinter
                 Console.WriteLine();
                 Console.WriteLine("OPTIONS");
                 Console.WriteLine("  --dest <path>             Destination folder to restore");
-                Console.WriteLine("                            Default: .\\maquinasdispensadorasnuevosoftware");
+                Console.WriteLine("                            Default: ..\\maquinasdispensadorasnuevosoftware");
                 Console.WriteLine("  --backup-root <path>      Root folder for backups");
                 Console.WriteLine("                            Default: .\\secur");
                 Console.WriteLine("  --last                    Rollback to most recent backup");

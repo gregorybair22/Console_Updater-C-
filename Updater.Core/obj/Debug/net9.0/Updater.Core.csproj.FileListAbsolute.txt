@@ -9,3 +9,14 @@ D:\second_task\Updater.Core\obj\Debug\net9.0\Updater.Core.dll
 D:\second_task\Updater.Core\obj\Debug\net9.0\refint\Updater.Core.dll
 D:\second_task\Updater.Core\obj\Debug\net9.0\Updater.Core.pdb
 D:\second_task\Updater.Core\obj\Debug\net9.0\ref\Updater.Core.dll
+D:\second\Updater.Core\bin\Debug\net9.0\Updater.Core.deps.json
+D:\second\Updater.Core\bin\Debug\net9.0\Updater.Core.dll
+D:\second\Updater.Core\bin\Debug\net9.0\Updater.Core.pdb
+D:\second\Updater.Core\obj\Debug\net9.0\Updater.Core.GeneratedMSBuildEditorConfig.editorconfig
+D:\second\Updater.Core\obj\Debug\net9.0\Updater.Core.AssemblyInfoInputs.cache
+D:\second\Updater.Core\obj\Debug\net9.0\Updater.Core.AssemblyInfo.cs
+D:\second\Updater.Core\obj\Debug\net9.0\Updater.Core.csproj.CoreCompileInputs.cache
+D:\second\Updater.Core\obj\Debug\net9.0\Updater.Core.dll
+D:\second\Updater.Core\obj\Debug\net9.0\refint\Updater.Core.dll
+D:\second\Updater.Core\obj\Debug\net9.0\Updater.Core.pdb
+D:\second\Updater.Core\obj\Debug\net9.0\ref\Updater.Core.dll

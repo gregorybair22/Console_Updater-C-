@@ -74,9 +74,9 @@ public class CommandParser
                 case "--dry-run":
                     options.DryRun = true;
                     break;
-                case "--sevenzip-path":
-                    if (i + 1 >= args.Length) throw new ArgumentException("--sevenzip-path requires a value");
-                    options.SevenZipPath = args[++i];
+                case "--winrar-path":
+                    if (i + 1 >= args.Length) throw new ArgumentException("--winrar-path requires a value");
+                    options.WinRarPath = args[++i];
                     break;
                 default:
                     throw new ArgumentException($"Unknown option: {arg}");

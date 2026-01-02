@@ -27,11 +27,11 @@ public partial class MainForm : Form
     private CheckBox _updatePreserveConfigCheckBox = null!;
     private CheckBox _updateRequireConfigCheckBox = null!;
     private CheckBox _updateDryRunCheckBox = null!;
-    private TextBox _updateSevenZipPathTextBox = null!;
+    private TextBox _updateWinRarPathTextBox = null!;
     private Button _updateBrowseSourceButton = null!;
     private Button _updateBrowseDestButton = null!;
     private Button _updateBrowseBackupRootButton = null!;
-    private Button _updateBrowseSevenZipButton = null!;
+    private Button _updateBrowseWinRarButton = null!;
     private Button _updateButton = null!;
 
     // Rollback Tab Controls
@@ -213,13 +213,13 @@ public partial class MainForm : Form
         panel.SetColumnSpan(_updateDryRunCheckBox, 3);
         row++;
 
-        // 7-Zip Path
-        panel.Controls.Add(new Label { Text = "7-Zip Path:", Anchor = AnchorStyles.Left | AnchorStyles.Top, AutoSize = true }, 0, row);
-        _updateSevenZipPathTextBox = new TextBox { Dock = DockStyle.Fill };
-        panel.Controls.Add(_updateSevenZipPathTextBox, 1, row);
-        _updateBrowseSevenZipButton = new Button { Text = "Browse...", Dock = DockStyle.Fill };
-        _updateBrowseSevenZipButton.Click += (s, e) => BrowseFile(_updateSevenZipPathTextBox, "Select 7z.exe", "7z.exe|7z.exe");
-        panel.Controls.Add(_updateBrowseSevenZipButton, 2, row++);
+        // WinRAR Path
+        panel.Controls.Add(new Label { Text = "WinRAR Path:", Anchor = AnchorStyles.Left | AnchorStyles.Top, AutoSize = true }, 0, row);
+        _updateWinRarPathTextBox = new TextBox { Dock = DockStyle.Fill };
+        panel.Controls.Add(_updateWinRarPathTextBox, 1, row);
+        _updateBrowseWinRarButton = new Button { Text = "Browse...", Dock = DockStyle.Fill };
+        _updateBrowseWinRarButton.Click += (s, e) => BrowseFile(_updateWinRarPathTextBox, "Select WinRAR.exe", "WinRAR.exe|WinRAR.exe");
+        panel.Controls.Add(_updateBrowseWinRarButton, 2, row++);
 
         // Update Button
         _updateButton = new Button { Text = "Start Update", Dock = DockStyle.Fill, Height = 40 };
@@ -429,14 +429,14 @@ public partial class MainForm : Form
     private void LoadDefaults()
     {
         _updateSourceTextBox.Text = @".\net7.0-windows.rar";
-        _updateDestTextBox.Text = @".\maquinasdispensadorasnuevosoftware";
+        _updateDestTextBox.Text = @"..\maquinasdispensadorasnuevosoftware";
         _updateBackupRootTextBox.Text = @".\secur";
         _updateConfigFileTextBox.Text = "appsettings.json";
         _updatePreserveConfigCheckBox.Checked = true;
         _updateRequireConfigCheckBox.Checked = false;
         _updateDryRunCheckBox.Checked = false;
 
-        _rollbackDestTextBox.Text = @".\maquinasdispensadorasnuevosoftware";
+        _rollbackDestTextBox.Text = @"..\maquinasdispensadorasnuevosoftware";
         _rollbackBackupRootTextBox.Text = @".\secur";
 
         _listVersionsBackupRootTextBox.Text = @".\secur";
@@ -604,7 +604,7 @@ public partial class MainForm : Form
                 PreserveConfig = _updatePreserveConfigCheckBox.Checked,
                 RequireConfig = _updateRequireConfigCheckBox.Checked,
                 DryRun = _updateDryRunCheckBox.Checked,
-                SevenZipPath = string.IsNullOrWhiteSpace(_updateSevenZipPathTextBox.Text) ? null : _updateSevenZipPathTextBox.Text
+                WinRarPath = string.IsNullOrWhiteSpace(_updateWinRarPathTextBox.Text) ? null : _updateWinRarPathTextBox.Text
             };
 
             await Task.Run(() => _updateService.Update(options));

@@ -31,7 +31,7 @@ public class UpdateService
         {
             // Expand source
             _logger.LogInfo($"Expanding source: {options.Source}");
-            var expandedRoot = _extractor.Extract(options.Source, tempFolder, options.SevenZipPath);
+            var expandedRoot = _extractor.Extract(options.Source, tempFolder, options.WinRarPath);
 
             // Resolve inner folder
             var innerFolder = ResolveInnerFolder(expandedRoot, options.InnerFolder);

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\second_task\\Updater.Cli\\Updater.Cli.csproj": {}
+    "D:\\second\\Updater.Cli\\Updater.Cli.csproj": {}
   },
   "projects": {
-    "D:\\second_task\\Updater.Cli\\Updater.Cli.csproj": {
+    "D:\\second\\Updater.Cli\\Updater.Cli.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\second_task\\Updater.Cli\\Updater.Cli.csproj",
+        "projectUniqueName": "D:\\second\\Updater.Cli\\Updater.Cli.csproj",
         "projectName": "Updater.Cli",
-        "projectPath": "D:\\second_task\\Updater.Cli\\Updater.Cli.csproj",
+        "projectPath": "D:\\second\\Updater.Cli\\Updater.Cli.csproj",
         "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "D:\\second_task\\Updater.Cli\\obj\\",
+        "outputPath": "D:\\second\\Updater.Cli\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -33,8 +33,8 @@
           "net9.0-windows7.0": {
             "targetAlias": "net9.0-windows",
             "projectReferences": {
-              "D:\\second_task\\Updater.Core\\Updater.Core.csproj": {
-                "projectPath": "D:\\second_task\\Updater.Core\\Updater.Core.csproj"
+              "D:\\second\\Updater.Core\\Updater.Core.csproj": {
+                "projectPath": "D:\\second\\Updater.Core\\Updater.Core.csproj"
               }
             }
           }
@@ -77,14 +77,14 @@
         }
       }
     },
-    "D:\\second_task\\Updater.Core\\Updater.Core.csproj": {
+    "D:\\second\\Updater.Core\\Updater.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\second_task\\Updater.Core\\Updater.Core.csproj",
+        "projectUniqueName": "D:\\second\\Updater.Core\\Updater.Core.csproj",
         "projectName": "Updater.Core",
-        "projectPath": "D:\\second_task\\Updater.Core\\Updater.Core.csproj",
+        "projectPath": "D:\\second\\Updater.Core\\Updater.Core.csproj",
         "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "D:\\second_task\\Updater.Core\\obj\\",
+        "outputPath": "D:\\second\\Updater.Core\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

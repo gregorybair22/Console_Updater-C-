@@ -6,7 +6,7 @@ A robust .NET console application for updating folder-based installations on Win
 
 ### Prerequisites
 - .NET 9.0 SDK or later
-- For RAR extraction: 7-Zip installed (7z.exe must be available in PATH or specified via `--sevenzip-path`)
+- For RAR extraction: WinRAR installed (WinRAR.exe must be available in PATH or specified via `--winrar-path`)
 
 ### Building
 ```bash
@@ -68,7 +68,7 @@ Print full help. Also triggered automatically on argument parsing errors.
 - `--source <path>` - Source package (ZIP, RAR, or folder)
   - Default: `.\net7.0-windows.rar`
 - `--dest <path>` - Destination folder to update
-  - Default: `.\maquinasdispensadorasnuevosoftware`
+  - Default: `..\maquinasdispensadorasnuevosoftware`
 - `--backup-root <path>` - Root folder for backups
   - Default: `.\secur`
 - `--config-file <name>` - Config file name to preserve
@@ -79,11 +79,11 @@ Print full help. Also triggered automatically on argument parsing errors.
 - `--require-config <true|false>` - Fail if config file is missing
   - Default: `false`
 - `--dry-run` - Show what would be done without making changes
-- `--sevenzip-path <path>` - Path to 7z.exe (for RAR extraction)
+- `--winrar-path <path>` - Path to WinRAR.exe (for RAR extraction)
 
 ### Rollback Command Options
 - `--dest <path>` - Destination folder to restore
-  - Default: `.\maquinasdispensadorasnuevosoftware`
+  - Default: `..\maquinasdispensadorasnuevosoftware`
 - `--backup-root <path>` - Root folder for backups
   - Default: `.\secur`
 - `--last` - Rollback to most recent backup
@@ -98,7 +98,7 @@ Print full help. Also triggered automatically on argument parsing errors.
 When running commands without options, the following defaults are used:
 
 - `--source`: `.\net7.0-windows.rar`
-- `--dest`: `.\maquinasdispensadorasnuevosoftware`
+- `--dest`: `..\maquinasdispensadorasnuevosoftware`
 - `--backup-root`: `.\secur`
 - `--config-file`: `appsettings.json`
 - `--inner-folder`: auto-detect (if exactly one directory found in package)
@@ -199,20 +199,20 @@ Before moving or replacing the destination folder, the tool detects files that c
 Uses built-in .NET APIs (`System.IO.Compression`). No external dependencies required.
 
 ### RAR
-RAR is not supported by .NET out of the box. The tool uses **7-Zip CLI**:
+RAR is not supported by .NET out of the box. The tool uses **WinRAR CLI**:
 
 **Prerequisites:**
-- 7-Zip must be installed
-- `7z.exe` must be available in one of:
+- WinRAR must be installed
+- `WinRAR.exe` must be available in one of:
   - PATH environment variable
-  - `C:\Program Files\7-Zip\7z.exe`
-  - `C:\Program Files (x86)\7-Zip\7z.exe`
-  - Or specify via `--sevenzip-path` option
+  - `C:\Program Files\WinRAR\WinRAR.exe`
+  - `C:\Program Files (x86)\WinRAR\WinRAR.exe`
+  - Or specify via `--winrar-path` option
 
 **Installation:**
-Download and install 7-Zip from: https://www.7-zip.org/
+Download and install WinRAR from: https://www.winrar.com/
 
-The tool will fail gracefully with a clear error if RAR extraction is requested but 7-Zip is not available.
+The tool will fail gracefully with a clear error if RAR extraction is requested but WinRAR is not available.
 
 ## Safety Features
 

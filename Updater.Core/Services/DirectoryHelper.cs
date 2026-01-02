@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 
 namespace Updater.Core.Services;
@@ -14,26 +15,55 @@ public static class DirectoryHelper
             throw new DirectoryNotFoundException($"Source directory not found: {sourcePath}");
         }
 
-        if (Directory.Exists(destinationPath))
+        // Normalize paths - remove trailing separators and get full paths
+        var normalizedSource = Path.GetFullPath(sourcePath).TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+        var normalizedDest = Path.GetFullPath(destinationPath).TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+
+        // Check if destination is a subdirectory of source (would cause infinite loop)
+        if (normalizedDest.StartsWith(normalizedSource + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase) ||
+            normalizedDest.StartsWith(normalizedSource + Path.AltDirectorySeparatorChar, StringComparison.OrdinalIgnoreCase))
         {
-            throw new InvalidOperationException($"Destination directory already exists: {destinationPath}");
+            throw new InvalidOperationException($"Destination cannot be a subdirectory of source: {normalizedDest}");
+        }
+
+        if (Directory.Exists(normalizedDest))
+        {
+            throw new InvalidOperationException($"Destination directory already exists: {normalizedDest}");
+        }
+
+        // Ensure destination parent directory exists
+        var destParent = Path.GetDirectoryName(normalizedDest);
+        if (!string.IsNullOrEmpty(destParent) && !Directory.Exists(destParent))
+        {
+            Directory.CreateDirectory(destParent);
         }
 
         // Check if source and destination are on the same volume
-        var sourceRoot = Path.GetPathRoot(Path.GetFullPath(sourcePath));
-        var destRoot = Path.GetPathRoot(Path.GetFullPath(destinationPath));
+        var sourceRoot = Path.GetPathRoot(normalizedSource);
+        var destRoot = Path.GetPathRoot(normalizedDest);
 
         if (string.Equals(sourceRoot, destRoot, StringComparison.OrdinalIgnoreCase))
         {
             // Same volume - use fast move operation
-            Directory.Move(sourcePath, destinationPath);
+            try
+            {
+                Directory.Move(normalizedSource, normalizedDest);
+            }
+            catch (IOException ex) when (ex.Message.Contains("parameter", StringComparison.OrdinalIgnoreCase) || 
+                                         ex.Message.Contains("incorrect", StringComparison.OrdinalIgnoreCase))
+            {
+                // Fallback to copy+delete if move fails with parameter error
+                logger?.LogWarn($"Directory.Move failed, falling back to copy+delete: {ex.Message}");
+                CopyDirectory(normalizedSource, normalizedDest, logger);
+                Directory.Delete(normalizedSource, true);
+            }
         }
         else
         {
             // Different volumes - copy then delete
             logger?.LogInfo($"Moving across volumes: {sourceRoot} -> {destRoot} (using copy + delete)");
-            CopyDirectory(sourcePath, destinationPath, logger);
-            Directory.Delete(sourcePath, true);
+            CopyDirectory(normalizedSource, normalizedDest, logger);
+            Directory.Delete(normalizedSource, true);
         }
     }
 

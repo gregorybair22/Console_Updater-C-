@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\second_task\\Updater.Core\\Updater.Core.csproj": {}
+    "D:\\second\\Updater.Core\\Updater.Core.csproj": {}
   },
   "projects": {
-    "D:\\second_task\\Updater.Core\\Updater.Core.csproj": {
+    "D:\\second\\Updater.Core\\Updater.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\second_task\\Updater.Core\\Updater.Core.csproj",
+        "projectUniqueName": "D:\\second\\Updater.Core\\Updater.Core.csproj",
         "projectName": "Updater.Core",
-        "projectPath": "D:\\second_task\\Updater.Core\\Updater.Core.csproj",
+        "projectPath": "D:\\second\\Updater.Core\\Updater.Core.csproj",
         "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "D:\\second_task\\Updater.Core\\obj\\",
+        "outputPath": "D:\\second\\Updater.Core\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
